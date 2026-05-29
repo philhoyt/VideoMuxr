@@ -1,0 +1,14 @@
+.claude
+.git
+.gitignore
+.distignore
+.phpcs.xml
+phpcs.xml.dist
+phpstan.neon
+phpunit.xml
+phpunit.xml.dist
+tests/
+vendor/
+node_modules/
+plans/
+*.zip

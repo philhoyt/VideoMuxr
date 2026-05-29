@@ -1,0 +1,32 @@
+{
+    "name": "philhoyt/videomuxr",
+    "description": "WordPress plugin that routes video uploads through Mux",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.1",
+        "yahnis-elsts/plugin-update-checker": "^5.3"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "wp-coding-standards/wpcs": "*",
+        "phpunit/phpunit": "^9.6",
+        "yoast/phpunit-polyfills": "^2.0",
+        "phpstan/phpstan": "^2.2",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "scripts": {
+        "copy-puc": "rsync -a --delete vendor/yahnis-elsts/plugin-update-checker/ lib/plugin-update-checker/",
+        "post-install-cmd": "@copy-puc",
+        "post-update-cmd": "@copy-puc",
+        "lint": "./vendor/bin/phpcs",
+        "lint:fix": "./vendor/bin/phpcbf",
+        "analyse": "./vendor/bin/phpstan analyse",
+        "test": "./vendor/bin/phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
