@@ -186,7 +186,16 @@ class VideoMuxr_REST {
 			);
 		}
 
-		$post_id  = (int) $request->get_param( 'post_id' );
+		$post_id = (int) $request->get_param( 'post_id' );
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return new WP_Error(
+				'videomuxr_forbidden',
+				__( 'You cannot edit this post.', 'videomuxr' ),
+				array( 'status' => 403 )
+			);
+		}
+
 		$asset_id = get_post_meta( $post_id, '_videomuxr_asset_id', true );
 
 		if ( ! is_string( $asset_id ) || '' === $asset_id ) {
