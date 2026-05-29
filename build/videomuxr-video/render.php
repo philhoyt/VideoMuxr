@@ -32,5 +32,6 @@ add_filter( 'script_loader_tag', 'videomuxr_add_module_type', 10, 2 );
 		playback-id="<?php echo esc_attr( $playback_id ); ?>"
 		controls
 		playsinline
+		style="aspect-ratio:16/9;display:block;width:100%;"
 	></mux-player>
 </figure>

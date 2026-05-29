@@ -236,13 +236,11 @@ export default function Edit({ attributes, setAttributes }) {
 
 				{uploadState === STATE.READY && (
 					<div className="videomuxr-video__preview">
-						<span className="videomuxr-video__preview-icon dashicons dashicons-video-alt3" />
-						<p className="videomuxr-video__preview-title">
-							{__('Mux Video', 'videomuxr')}
-						</p>
-						<p className="videomuxr-video__preview-id">
-							{playbackId}
-						</p>
+						<img
+							src={`https://image.mux.com/${playbackId}/thumbnail.jpg?width=640`}
+							alt={__('Video thumbnail', 'videomuxr')}
+							className="videomuxr-video__preview-thumbnail"
+						/>
 					</div>
 				)}
 			</figure>
