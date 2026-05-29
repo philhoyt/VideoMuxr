@@ -24,27 +24,27 @@ class Test_VideoMuxr_Blocks extends TestCase {
 	// -------------------------------------------------------------------------
 
 	public function test_block_json_exists(): void {
-		$path = dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json';
+		$path = dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json';
 		$this->assertFileExists( $path );
 	}
 
 	public function test_render_php_exists(): void {
-		$path = dirname( __DIR__, 3 ) . '/src/videomuxr-video/render.php';
+		$path = dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/render.php';
 		$this->assertFileExists( $path );
 	}
 
 	public function test_build_block_json_exists(): void {
-		$path = dirname( __DIR__, 3 ) . '/build/videomuxr-video/block.json';
+		$path = dirname( __DIR__, 3 ) . '/build/blocks/videomuxr-video/block.json';
 		$this->assertFileExists( $path );
 	}
 
 	public function test_build_index_js_exists(): void {
-		$path = dirname( __DIR__, 3 ) . '/build/videomuxr-video/index.js';
+		$path = dirname( __DIR__, 3 ) . '/build/blocks/videomuxr-video/index.js';
 		$this->assertFileExists( $path );
 	}
 
 	public function test_build_render_php_exists(): void {
-		$path = dirname( __DIR__, 3 ) . '/build/videomuxr-video/render.php';
+		$path = dirname( __DIR__, 3 ) . '/build/blocks/videomuxr-video/render.php';
 		$this->assertFileExists( $path );
 	}
 
@@ -54,7 +54,7 @@ class Test_VideoMuxr_Blocks extends TestCase {
 
 	public function test_block_json_has_correct_name(): void {
 		$json = json_decode(
-			file_get_contents( dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json' ),
+			file_get_contents( dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json' ),
 			true
 		);
 		$this->assertSame( 'videomuxr/video', $json['name'] );
@@ -62,7 +62,7 @@ class Test_VideoMuxr_Blocks extends TestCase {
 
 	public function test_block_json_api_version_is_3(): void {
 		$json = json_decode(
-			file_get_contents( dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json' ),
+			file_get_contents( dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json' ),
 			true
 		);
 		$this->assertSame( 3, $json['apiVersion'] );
@@ -70,7 +70,7 @@ class Test_VideoMuxr_Blocks extends TestCase {
 
 	public function test_block_json_has_playback_id_attribute(): void {
 		$json = json_decode(
-			file_get_contents( dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json' ),
+			file_get_contents( dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json' ),
 			true
 		);
 		$this->assertArrayHasKey( 'playbackId', $json['attributes'] );
@@ -79,7 +79,7 @@ class Test_VideoMuxr_Blocks extends TestCase {
 
 	public function test_block_json_has_asset_id_attribute(): void {
 		$json = json_decode(
-			file_get_contents( dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json' ),
+			file_get_contents( dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json' ),
 			true
 		);
 		$this->assertArrayHasKey( 'assetId', $json['attributes'] );
@@ -87,7 +87,7 @@ class Test_VideoMuxr_Blocks extends TestCase {
 
 	public function test_block_json_html_support_is_disabled(): void {
 		$json = json_decode(
-			file_get_contents( dirname( __DIR__, 3 ) . '/src/videomuxr-video/block.json' ),
+			file_get_contents( dirname( __DIR__, 3 ) . '/src/blocks/videomuxr-video/block.json' ),
 			true
 		);
 		$this->assertFalse( $json['supports']['html'] );

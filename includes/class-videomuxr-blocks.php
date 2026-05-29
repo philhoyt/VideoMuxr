@@ -38,13 +38,26 @@ class VideoMuxr_Blocks {
 	}
 
 	/**
-	 * Register all plugin blocks from build output.
+	 * Register every compiled block found under build/blocks/.
+	 *
+	 * Each block compiles to its own directory containing a block.json;
+	 * new blocks are picked up automatically without changing this method.
 	 */
 	public function register_blocks(): void {
-		$build_dir = VIDEOMUXR_PATH . 'build/';
+		$blocks_dir = VIDEOMUXR_PATH . 'build/blocks/';
 
-		if ( file_exists( $build_dir . 'videomuxr-video/' ) ) {
-			register_block_type( $build_dir . 'videomuxr-video/' );
+		if ( ! is_dir( $blocks_dir ) ) {
+			return;
+		}
+
+		$block_folders = glob( $blocks_dir . '*', GLOB_ONLYDIR );
+
+		if ( empty( $block_folders ) ) {
+			return;
+		}
+
+		foreach ( $block_folders as $block_folder ) {
+			register_block_type( $block_folder );
 		}
 	}
 }
