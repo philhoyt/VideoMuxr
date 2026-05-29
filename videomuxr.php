@@ -3,7 +3,7 @@
  * Plugin Name:       VideoMuxr
  * Plugin URI:        https://github.com/philhoyt/VideoMuxr/
  * Description:       Routes WordPress video uploads through Mux for transcoding and playback.
- * Version:           1.0.0
+ * Version:           0.1.0
  * Requires at least: 6.7
  * Tested up to:      7.0
  * Requires PHP:      8.1
@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VIDEOMUXR_VERSION', '1.0.0' );
+define( 'VIDEOMUXR_VERSION', '0.1.0' );
 define( 'VIDEOMUXR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VIDEOMUXR_URL', plugin_dir_url( __FILE__ ) );
 

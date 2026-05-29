@@ -1,15 +1,43 @@
-.claude
+# Version control & editor
 .git
+.github
 .gitignore
 .distignore
-.phpcs.xml
+.DS_Store
+.editorconfig
+
+# Claude Code
+.claude
+
+# Local planning notes
+plans/
+
+# Source (compiled into build/)
+src/
+
+# Dependencies (PUC is copied into lib/, which DOES ship)
+node_modules/
+vendor/
+
+# Build & dev tooling config
+package.json
+package-lock.json
+composer.json
+composer.lock
+eslint.config.js
+.stylelintrc.json
+.stylelintignore
+.wp-env.json
 phpcs.xml.dist
+.phpcs.xml
 phpstan.neon
+phpstan-bootstrap.php
 phpunit.xml
 phpunit.xml.dist
+
+# Tests
 tests/
-vendor/
-node_modules/
-src/
-plans/
+
+# Caches & archives
+.phpunit.result.cache
 *.zip

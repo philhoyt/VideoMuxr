@@ -4,7 +4,7 @@ Tags:              video, mux, upload, player
 Requires at least: 6.7
 Tested up to:      7.0
 Requires PHP:      8.1
-Stable tag:        1.0.0
+Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,5 +48,10 @@ Not yet — credentials are stored in the database via the Settings page. A wp-c
 
 == Changelog ==
 
-= 1.0.0 =
-* Initial release.
+= 0.1.0 =
+* Add: VideoMuxr Video block — upload video directly in the block editor, transcoded by Mux and played via `<mux-player>` on the front end.
+* Add: REST API (`videomuxr/v1`) for direct upload, status polling, and asset deletion.
+* Add: Settings → VideoMuxr page for Mux Token ID and Token Secret.
+* Add: Public helper functions `videomuxr_is_configured()`, `videomuxr_get_playback_id()`, and `videomuxr_get_player_html()`.
+* Add: Automatic Mux asset deletion when a post is permanently deleted.
+* Change: Front-end player uses each video's real aspect ratio reported by Mux, preventing layout shift on load.
