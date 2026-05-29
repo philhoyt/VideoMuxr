@@ -65,14 +65,11 @@ final class VideoMuxr {
 		$asset_id = get_post_meta( $post_id, '_videomuxr_asset_id', true );
 
 		if ( is_string( $asset_id ) && '' !== $asset_id && videomuxr_is_configured() ) {
-			$settings = get_option( 'videomuxr_settings', array() );
-			if ( is_array( $settings ) ) {
-				$mux = new VideoMuxr_Mux(
-					(string) ( $settings['token_id'] ?? '' ),
-					(string) ( $settings['token_secret'] ?? '' )
-				);
-				$mux->delete_asset( $asset_id );
-			}
+			$mux = new VideoMuxr_Mux(
+				VideoMuxr_Settings::get_token_id(),
+				VideoMuxr_Settings::get_token_secret()
+			);
+			$mux->delete_asset( $asset_id );
 		}
 
 		delete_post_meta( $post_id, '_videomuxr_playback_id' );
