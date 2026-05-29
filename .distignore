@@ -10,5 +10,6 @@ phpunit.xml.dist
 tests/
 vendor/
 node_modules/
+src/
 plans/
 *.zip
