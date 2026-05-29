@@ -82,10 +82,15 @@ class VideoMuxr_REST {
 				'callback'            => array( $this, 'handle_delete_asset' ),
 				'permission_callback' => array( $this, 'check_permission' ),
 				'args'                => array(
-					'post_id' => array(
-						'required'          => true,
+					'post_id'  => array(
+						'required'          => false,
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
+					),
+					'asset_id' => array(
+						'required'          => false,
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 				),
 			)
@@ -163,16 +168,21 @@ class VideoMuxr_REST {
 			return $result;
 		}
 
-		// Only surface playback_id when the asset is truly ready.
+		// Only surface playback_id and aspect_ratio when the asset is truly ready.
 		if ( 'ready' !== $result['status'] ) {
 			unset( $result['playback_id'] );
+			unset( $result['aspect_ratio'] );
 		}
 
 		return rest_ensure_response( $result );
 	}
 
 	/**
-	 * DELETE /videomuxr/v1/asset — delete a Mux asset and clear post meta.
+	 * DELETE /videomuxr/v1/asset — delete a Mux asset.
+	 *
+	 * Accepts either:
+	 *   - post_id  — looks up _videomuxr_asset_id from post meta and clears both meta keys
+	 *   - asset_id — deletes the Mux asset directly (used by the block editor)
 	 *
 	 * @param WP_REST_Request $request Incoming request.
 	 * @return WP_REST_Response|WP_Error
@@ -186,23 +196,33 @@ class VideoMuxr_REST {
 			);
 		}
 
-		$post_id = (int) $request->get_param( 'post_id' );
+		$post_id  = (int) $request->get_param( 'post_id' );
+		$asset_id = (string) $request->get_param( 'asset_id' );
 
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		if ( $post_id > 0 ) {
+			// Post-meta path: verify the caller can edit this specific post.
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return new WP_Error(
+					'videomuxr_forbidden',
+					__( 'You cannot edit this post.', 'videomuxr' ),
+					array( 'status' => 403 )
+				);
+			}
+
+			$asset_id = (string) get_post_meta( $post_id, '_videomuxr_asset_id', true );
+
+			if ( '' === $asset_id ) {
+				return new WP_Error(
+					'videomuxr_no_asset',
+					__( 'No Mux asset found for this post.', 'videomuxr' ),
+					array( 'status' => 404 )
+				);
+			}
+		} elseif ( '' === $asset_id ) {
 			return new WP_Error(
-				'videomuxr_forbidden',
-				__( 'You cannot edit this post.', 'videomuxr' ),
-				array( 'status' => 403 )
-			);
-		}
-
-		$asset_id = get_post_meta( $post_id, '_videomuxr_asset_id', true );
-
-		if ( ! is_string( $asset_id ) || '' === $asset_id ) {
-			return new WP_Error(
-				'videomuxr_no_asset',
-				__( 'No Mux asset found for this post.', 'videomuxr' ),
-				array( 'status' => 404 )
+				'videomuxr_missing_param',
+				__( 'Provide either post_id or asset_id.', 'videomuxr' ),
+				array( 'status' => 400 )
 			);
 		}
 
@@ -213,8 +233,10 @@ class VideoMuxr_REST {
 			return $result;
 		}
 
-		delete_post_meta( $post_id, '_videomuxr_playback_id' );
-		delete_post_meta( $post_id, '_videomuxr_asset_id' );
+		if ( $post_id > 0 ) {
+			delete_post_meta( $post_id, '_videomuxr_playback_id' );
+			delete_post_meta( $post_id, '_videomuxr_asset_id' );
+		}
 
 		return rest_ensure_response( array( 'deleted' => true ) );
 	}

@@ -39,6 +39,7 @@ if ( ! file_exists( $wp_tests_dir . '/includes/functions.php' ) ) {
 	require_once $root . '/includes/class-videomuxr-mux.php';
 	require_once $root . '/includes/class-videomuxr-meta.php';
 	require_once $root . '/includes/class-videomuxr-rest.php';
+	require_once $root . '/includes/class-videomuxr-blocks.php';
 
 	return;
 }

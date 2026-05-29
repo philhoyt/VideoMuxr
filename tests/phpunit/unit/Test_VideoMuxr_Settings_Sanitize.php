@@ -13,13 +13,8 @@ class Test_VideoMuxr_Settings_Sanitize extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		Monkey\setUp();
-
-		// sanitize_text_field stub — strips tags, trims whitespace.
-		Functions\stubs(
-			array(
-				'sanitize_text_field' => static fn( string $v ): string => trim( strip_tags( $v ) ),
-			)
-		);
+		// sanitize_text_field is provided by tests/phpunit/stubs/functions-wp.php
+		// (loaded before Patchwork) so it cannot be re-mocked here.
 	}
 
 	protected function tearDown(): void {

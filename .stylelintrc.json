@@ -1,0 +1,16 @@
+{
+	"extends": [
+		"@wordpress/stylelint-config",
+		"@wordpress/stylelint-config/scss"
+	],
+	"rules": {
+		"scss/at-rule-no-unknown": true,
+		"no-descending-specificity": null,
+		"selector-class-pattern": [
+			"^[a-z][a-z0-9-]*(__[a-z][a-z0-9-]*)?(--[a-z0-9][a-z0-9-]*)?$",
+			{
+				"message": "Class names must follow BEM: block__element--modifier (lowercase, hyphens only)"
+			}
+		]
+	}
+}
