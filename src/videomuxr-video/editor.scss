@@ -1,0 +1,90 @@
+.videomuxr-video-edit {
+	margin: 0;
+}
+
+.videomuxr-video__file-input {
+	display: none;
+}
+
+.videomuxr-video__placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 200px;
+	padding: 32px 24px;
+	background: #f0f0f1;
+	border: 1px dashed #949494;
+	border-radius: 2px;
+	text-align: center;
+	gap: 12px;
+}
+
+.videomuxr-video__icon {
+	font-size: 48px;
+	width: 48px;
+	height: 48px;
+	color: #949494;
+}
+
+.videomuxr-video__label {
+	margin: 0;
+	font-size: 13px;
+	color: #3c434a;
+}
+
+.videomuxr-video__error {
+	margin: 0;
+	color: #cc1818;
+	font-size: 13px;
+}
+
+.videomuxr-video__progress {
+	width: 100%;
+	max-width: 240px;
+	height: 4px;
+	background: #ddd;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.videomuxr-video__progress-fill {
+	height: 100%;
+	background: #007cba;
+	transition: width 0.2s ease;
+}
+
+.videomuxr-video__preview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 200px;
+	padding: 24px;
+	background: #1e1e1e;
+	border-radius: 2px;
+	text-align: center;
+	gap: 8px;
+}
+
+.videomuxr-video__preview-icon {
+	font-size: 48px;
+	width: 48px;
+	height: 48px;
+	color: #fff;
+}
+
+.videomuxr-video__preview-title {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+}
+
+.videomuxr-video__preview-id {
+	margin: 0;
+	font-size: 11px;
+	font-family: monospace;
+	color: rgba(255, 255, 255, 0.6);
+	word-break: break-all;
+}

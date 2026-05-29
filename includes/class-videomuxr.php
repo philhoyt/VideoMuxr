@@ -41,6 +41,7 @@ final class VideoMuxr {
 		VideoMuxr_Settings::get_instance()->init();
 		VideoMuxr_Meta::get_instance()->init();
 		VideoMuxr_REST::get_instance()->init();
+		VideoMuxr_Blocks::get_instance()->init();
 
 		add_action( 'before_delete_post', array( $this, 'handle_delete_post' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_player' ) );
@@ -113,5 +114,6 @@ final class VideoMuxr {
 		require_once $dir . 'class-videomuxr-mux.php';
 		require_once $dir . 'class-videomuxr-meta.php';
 		require_once $dir . 'class-videomuxr-rest.php';
+		require_once $dir . 'class-videomuxr-blocks.php';
 	}
 }
