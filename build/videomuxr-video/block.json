@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "videomuxr/video",
+  "version": "1.0.0",
+  "title": "VideoMuxr Video",
+  "category": "media",
+  "icon": "video-alt3",
+  "description": "Upload and play a Mux-hosted video.",
+  "textdomain": "videomuxr",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "attributes": {
+    "playbackId": {
+      "type": "string",
+      "default": ""
+    },
+    "assetId": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
