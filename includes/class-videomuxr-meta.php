@@ -49,10 +49,11 @@ class VideoMuxr_Meta {
 			'post',
 			'_videomuxr_playback_id',
 			array(
-				'type'          => 'string',
-				'single'        => true,
-				'show_in_rest'  => false,
-				'auth_callback' => $auth_callback,
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => false,
+				'auth_callback'     => $auth_callback,
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -60,10 +61,11 @@ class VideoMuxr_Meta {
 			'post',
 			'_videomuxr_asset_id',
 			array(
-				'type'          => 'string',
-				'single'        => true,
-				'show_in_rest'  => false,
-				'auth_callback' => $auth_callback,
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => false,
+				'auth_callback'     => $auth_callback,
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 	}

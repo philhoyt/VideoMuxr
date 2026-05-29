@@ -93,7 +93,7 @@ final class VideoMuxr {
 
 		wp_enqueue_script(
 			'mux-player',
-			'https://cdn.jsdelivr.net/npm/@mux/mux-player',
+			'https://cdn.jsdelivr.net/npm/@mux/mux-player@3',
 			array(),
 			VIDEOMUXR_VERSION,
 			array( 'in_footer' => true )

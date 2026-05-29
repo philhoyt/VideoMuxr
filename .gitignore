@@ -8,3 +8,4 @@ node_modules/
 # Claude Code — local feature planning notes, not part of the codebase
 plans/
 .DS_Store
+.phpunit.result.cache
