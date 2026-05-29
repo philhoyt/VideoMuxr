@@ -28,3 +28,17 @@ if ( ! function_exists( 'esc_html_e' ) ) {
 		echo htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' );
 	}
 }
+
+if ( ! function_exists( 'sanitize_text_field' ) ) {
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+	function sanitize_text_field( string $str ): string {
+		return trim( strip_tags( $str ) );
+	}
+}
+
+if ( ! function_exists( 'wp_json_encode' ) ) {
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+	function wp_json_encode( mixed $data, int $options = 0, int $depth = 512 ): string|false {
+		return json_encode( $data, $options, $depth );
+	}
+}

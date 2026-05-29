@@ -113,4 +113,41 @@ class Test_VideoMuxr_REST_Permission extends TestCase {
 		$this->assertInstanceOf( WP_Error::class, $result );
 		$this->assertSame( 'videomuxr_not_configured', $result->get_error_code() );
 	}
+
+	// -------------------------------------------------------------------------
+	// handle_delete_asset() — direct asset_id path (block editor use case)
+	// -------------------------------------------------------------------------
+
+	public function test_delete_asset_rejects_when_neither_param_provided(): void {
+		Functions\when( 'videomuxr_is_configured' )->justReturn( true );
+
+		$request = new WP_REST_Request( 'DELETE' );
+
+		$result = VideoMuxr_REST::get_instance()->handle_delete_asset( $request );
+
+		$this->assertInstanceOf( WP_Error::class, $result );
+		$this->assertSame( 'videomuxr_missing_param', $result->get_error_code() );
+	}
+
+	public function test_delete_asset_with_direct_asset_id_skips_per_post_check(): void {
+		Functions\when( 'videomuxr_is_configured' )->justReturn( true );
+		Functions\when( 'get_option' )->justReturn( array() );
+		// wp_remote_request returns a WP_Error so the Mux HTTP call fails gracefully.
+		Functions\when( 'wp_remote_request' )->justReturn(
+			new WP_Error( 'http_request_failed', 'test' )
+		);
+
+		$request = new WP_REST_Request( 'DELETE' );
+		$request->set_param( 'asset_id', 'mux-asset-abc123' );
+
+		$result = VideoMuxr_REST::get_instance()->handle_delete_asset( $request );
+
+		// Handler reached the Mux delete call — result is an API error, NOT a
+		// permission or missing_param error. This confirms the per-post check
+		// is skipped when asset_id is provided directly.
+		$this->assertInstanceOf( WP_Error::class, $result );
+		$this->assertNotSame( 'videomuxr_forbidden', $result->get_error_code() );
+		$this->assertNotSame( 'videomuxr_missing_param', $result->get_error_code() );
+		$this->assertNotSame( 'videomuxr_not_configured', $result->get_error_code() );
+	}
 }
