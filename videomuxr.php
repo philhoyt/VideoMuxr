@@ -5,7 +5,7 @@
  * Description:       Routes WordPress video uploads through Mux for transcoding and playback.
  * Version:           1.0.0
  * Requires at least: 6.7
- * Tested up to:      6.9
+ * Tested up to:      7.0
  * Requires PHP:      8.1
  * Author:            philhoyt
  * Author URI:        https://philhoyt.com/
@@ -30,12 +30,17 @@ require_once VIDEOMUXR_PATH . 'lib/plugin-update-checker/plugin-update-checker.p
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$videomuxr_update_checker = PucFactory::buildUpdateChecker(
-	'https://github.com/philhoyt/VideoMuxr/',
-	__FILE__,
-	'videomuxr'
-);
-$videomuxr_update_checker->getVcsApi()->enableReleaseAssets();
+( static function (): void {
+	$checker = PucFactory::buildUpdateChecker(
+		'https://github.com/philhoyt/VideoMuxr/',
+		__FILE__,
+		'videomuxr'
+	);
+	$checker->getVcsApi()->enableReleaseAssets();
+} )();
+
+// Load public helper functions.
+require_once VIDEOMUXR_PATH . 'includes/functions.php';
 
 /**
  * Bootstrap the plugin after all plugins are loaded.
@@ -64,72 +69,6 @@ function videomuxr_plugin_action_links( array $links ): array {
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'videomuxr_plugin_action_links' );
-
-/**
- * Returns true when both Mux API credentials are saved.
- */
-function videomuxr_is_configured(): bool {
-	$settings = get_option( 'videomuxr_settings', array() );
-	if ( ! is_array( $settings ) ) {
-		return false;
-	}
-	return ! empty( $settings['token_id'] ) && ! empty( $settings['token_secret'] );
-}
-
-/**
- * Returns the Mux playback ID stored for a post, or null if not set.
- *
- * @param int $post_id Post ID.
- * @return string|null
- */
-function videomuxr_get_playback_id( int $post_id ): ?string {
-	$value = get_post_meta( $post_id, '_videomuxr_playback_id', true );
-	return ( is_string( $value ) && '' !== $value ) ? $value : null;
-}
-
-/**
- * Renders a <mux-player> element for the given playback ID.
- *
- * @param string               $playback_id Mux playback ID.
- * @param array<string,string> $attrs       Additional HTML attributes.
- * @return string
- */
-function videomuxr_get_player_html( string $playback_id, array $attrs = array() ): string {
-	$default_attrs = array(
-		'playback-id' => $playback_id,
-		'controls'    => '',
-		'playsinline' => '',
-	);
-
-	/* @var array<string,string> $attrs */
-	$attrs = apply_filters( 'videomuxr_player_attrs', array_merge( $default_attrs, $attrs ), $playback_id );
-
-	$attr_string = '';
-	foreach ( $attrs as $key => $value ) {
-		$key = esc_attr( $key );
-		if ( '' === $value ) {
-			$attr_string .= ' ' . $key;
-		} else {
-			$attr_string .= ' ' . $key . '="' . esc_attr( $value ) . '"';
-		}
-	}
-
-	return '<mux-player' . $attr_string . '></mux-player>';
-}
-
-/**
- * Add type="module" to the mux-player script tag.
- *
- * @param string $tag    HTML script tag.
- * @param string $handle Script handle.
- * @return string
- */
-function videomuxr_add_module_type( string $tag, string $handle ): string {
-	if ( 'mux-player' === $handle ) {
-		return str_replace( ' src=', ' type="module" src=', $tag );
-	}
-	return $tag;
-}
 
 /**
  * Activation hook.

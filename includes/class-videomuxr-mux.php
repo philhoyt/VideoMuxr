@@ -67,6 +67,10 @@ class VideoMuxr_Mux {
 			)
 		);
 
+		if ( false === $body ) {
+			return new WP_Error( 'videomuxr_encode_error', __( 'Failed to encode request body.', 'videomuxr' ) );
+		}
+
 		$response = $this->request( 'POST', self::API_BASE . '/uploads', $body );
 
 		if ( is_wp_error( $response ) ) {

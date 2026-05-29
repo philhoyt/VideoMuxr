@@ -3,11 +3,16 @@ includes:
 
 parameters:
     level: 5
+    bootstrapFiles:
+        - phpstan-bootstrap.php
     paths:
+        - videomuxr.php
         - includes
     excludePaths:
         - vendor
         - lib
         - node_modules
-        - build
+        - build (?)
         - tests
+    ignoreErrors:
+        - '#Call to an undefined method YahnisElsts\\PluginUpdateChecker\\.*::enableReleaseAssets\(\)#'
