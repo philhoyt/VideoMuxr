@@ -26,6 +26,10 @@
     "assetId": {
       "type": "string",
       "default": ""
+    },
+    "aspectRatio": {
+      "type": "string",
+      "default": ""
     }
   }
 }

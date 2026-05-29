@@ -5,4 +5,4 @@ import Edit from './edit';
 import save from './save';
 import './editor.scss';
 
-registerBlockType( metadata, { edit: Edit, save } );
+registerBlockType(metadata, { edit: Edit, save });

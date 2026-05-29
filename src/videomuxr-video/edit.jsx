@@ -143,6 +143,7 @@ export default function Edit({ attributes, setAttributes }) {
 					setAttributes({
 						playbackId: result.playback_id,
 						assetId: result.asset_id || '',
+						aspectRatio: result.aspect_ratio || '',
 					});
 					setUploadState(STATE.READY);
 				}
@@ -166,7 +167,7 @@ export default function Edit({ attributes, setAttributes }) {
 				// Proceed to idle even if the Mux delete fails.
 			}
 		}
-		setAttributes({ playbackId: '', assetId: '' });
+		setAttributes({ playbackId: '', assetId: '', aspectRatio: '' });
 		setProgress(0);
 		setError('');
 		setUploadState(STATE.IDLE);

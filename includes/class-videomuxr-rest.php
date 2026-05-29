@@ -168,9 +168,10 @@ class VideoMuxr_REST {
 			return $result;
 		}
 
-		// Only surface playback_id when the asset is truly ready.
+		// Only surface playback_id and aspect_ratio when the asset is truly ready.
 		if ( 'ready' !== $result['status'] ) {
 			unset( $result['playback_id'] );
+			unset( $result['aspect_ratio'] );
 		}
 
 		return rest_ensure_response( $result );

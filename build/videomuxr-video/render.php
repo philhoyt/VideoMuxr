@@ -18,6 +18,13 @@ if ( '' === $playback_id ) {
 	return;
 }
 
+// Convert Mux "16:9" format to CSS "16/9" for the aspect-ratio property.
+$aspect_ratio     = sanitize_text_field( $attributes['aspectRatio'] ?? '' );
+$css_aspect_ratio = '' !== $aspect_ratio ? str_replace( ':', '/', $aspect_ratio ) : '';
+$player_style     = $css_aspect_ratio
+	? 'aspect-ratio:' . $css_aspect_ratio . ';display:block;width:100%;'
+	: 'display:block;width:100%;';
+
 wp_enqueue_script(
 	'mux-player',
 	'https://cdn.jsdelivr.net/npm/@mux/mux-player@3',
@@ -32,6 +39,6 @@ add_filter( 'script_loader_tag', 'videomuxr_add_module_type', 10, 2 );
 		playback-id="<?php echo esc_attr( $playback_id ); ?>"
 		controls
 		playsinline
-		style="aspect-ratio:16/9;display:block;width:100%;"
+		style="<?php echo esc_attr( $player_style ); ?>"
 	></mux-player>
 </figure>

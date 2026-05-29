@@ -122,23 +122,26 @@ class VideoMuxr_Mux {
 			);
 		}
 
-		$mux_status  = $data['status'] ?? 'waiting';
-		$asset_id    = isset( $data['asset_id'] ) ? sanitize_text_field( (string) $data['asset_id'] ) : null;
-		$playback_id = null;
-		$status      = $this->map_upload_status( $mux_status );
+		$mux_status   = $data['status'] ?? 'waiting';
+		$asset_id     = isset( $data['asset_id'] ) ? sanitize_text_field( (string) $data['asset_id'] ) : null;
+		$playback_id  = null;
+		$aspect_ratio = null;
+		$status       = $this->map_upload_status( $mux_status );
 
 		if ( $asset_id && in_array( $status, array( 'asset_created', 'ready' ), true ) ) {
 			$asset = $this->get_asset( $asset_id );
 			if ( ! is_wp_error( $asset ) && 'ready' === ( $asset['status'] ?? '' ) && ! empty( $asset['playback_id'] ) ) {
-				$status      = 'ready';
-				$playback_id = $asset['playback_id'];
+				$status       = 'ready';
+				$playback_id  = $asset['playback_id'];
+				$aspect_ratio = $asset['aspect_ratio'];
 			}
 		}
 
 		return array(
-			'status'      => $status,
-			'asset_id'    => $asset_id,
-			'playback_id' => $playback_id,
+			'status'       => $status,
+			'asset_id'     => $asset_id,
+			'playback_id'  => $playback_id,
+			'aspect_ratio' => $aspect_ratio,
 		);
 	}
 
@@ -176,8 +179,9 @@ class VideoMuxr_Mux {
 		}
 
 		return array(
-			'status'      => sanitize_text_field( $data['status'] ?? '' ),
-			'playback_id' => $playback_id,
+			'status'       => sanitize_text_field( $data['status'] ?? '' ),
+			'playback_id'  => $playback_id,
+			'aspect_ratio' => sanitize_text_field( $data['aspect_ratio'] ?? '' ),
 		);
 	}
 
