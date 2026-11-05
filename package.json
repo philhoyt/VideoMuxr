@@ -25,9 +25,9 @@
     "test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/$(basename \"$PWD\") vendor/bin/phpunit --testsuite unit && wp-env run tests-cli --env-cwd=wp-content/plugins/$(basename \"$PWD\") vendor/bin/phpunit --testsuite integration"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "philhoyt",
+  "license": "GPL-2.0-or-later",
+  "description": "Routes WordPress video uploads through Mux for transcoding and playback.",
   "devDependencies": {
     "@wordpress/env": "^12.1.0",
     "@wordpress/eslint-plugin": "^28.1.0",
