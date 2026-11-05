@@ -22,7 +22,7 @@
         "post-update-cmd": "@copy-puc",
         "lint": "./vendor/bin/phpcs",
         "lint:fix": "./vendor/bin/phpcbf",
-        "analyse": "./vendor/bin/phpstan analyse",
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=1G",
         "test": "./vendor/bin/phpunit"
     },
     "config": {

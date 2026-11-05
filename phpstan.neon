@@ -9,10 +9,10 @@ parameters:
         - videomuxr.php
         - includes
     excludePaths:
-        - vendor
-        - lib
-        - node_modules
+        - vendor (?)
+        - lib (?)
+        - node_modules (?)
         - build (?)
-        - tests
+        - tests (?)
     ignoreErrors:
         - '#Call to an undefined method YahnisElsts\\PluginUpdateChecker\\.*::enableReleaseAssets\(\)#'
