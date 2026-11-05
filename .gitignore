@@ -9,3 +9,6 @@ node_modules/
 plans/
 .DS_Store
 .phpunit.result.cache
+
+# wp-env local overrides
+.wp-env.override.json

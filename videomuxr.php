@@ -5,7 +5,7 @@
  * Description:       Routes WordPress video uploads through Mux for transcoding and playback.
  * Version:           0.1.0
  * Requires at least: 6.7
- * Tested up to:      7.0
+ * Tested up to:      7.1
  * Requires PHP:      8.1
  * Author:            philhoyt
  * Author URI:        https://philhoyt.com/
