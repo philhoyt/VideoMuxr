@@ -4,7 +4,7 @@ Tags:              video, mux, upload, player
 Requires at least: 6.7
 Tested up to:      7.1
 Requires PHP:      8.1
-Stable tag:        0.1.0
+Stable tag:        0.1.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,10 @@ Sign up at [mux.com](https://mux.com/) and create an Access Token under Settings
 Not yet — credentials are stored in the database via the Settings page. A wp-config.php override may be added in a future release.
 
 == Changelog ==
+
+= 0.1.1 =
+* Fix: The update checker's bundled Markdown and readme parsers now ship with the plugin, so update checks no longer fail with a missing class.
+* Change: Tested up to WordPress 7.1.
 
 = 0.1.0 =
 * Add: VideoMuxr Video block — upload video directly in the block editor, transcoded by Mux and played via `<mux-player>` on the front end.
