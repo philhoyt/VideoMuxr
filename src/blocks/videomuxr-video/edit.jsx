@@ -27,9 +27,9 @@ const STATE = {
 };
 
 /**
- * @param {Object}   props
- * @param {Object}   props.attributes
- * @param {Function} props.setAttributes
+ * @param {Object}                  props
+ * @param {Object}                  props.attributes
+ * @param {(attrs: Object) => void} props.setAttributes
  */
 export default function Edit({ attributes, setAttributes }) {
 	const { playbackId, assetId } = attributes;

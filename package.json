@@ -29,9 +29,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@wordpress/env": "^11.7.0",
-    "@wordpress/eslint-plugin": "^25.3.0",
-    "@wordpress/scripts": "^32.3.0",
-    "@wordpress/stylelint-config": "^23.39.0"
+    "@wordpress/env": "^12.1.0",
+    "@wordpress/eslint-plugin": "^28.1.0",
+    "@wordpress/scripts": "^37.1.0",
+    "@wordpress/stylelint-config": "^27.1.0"
   }
 }
