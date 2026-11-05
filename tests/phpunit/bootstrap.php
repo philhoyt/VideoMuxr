@@ -10,7 +10,17 @@ declare(strict_types=1);
 
 $wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ?: rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
 
-if ( ! file_exists( $wp_tests_dir . '/includes/functions.php' ) ) {
+// The unit suite mocks WordPress functions with Brain Monkey, which only works
+// while WordPress itself is not loaded. Inside wp-env WP_TESTS_DIR is always
+// set, so an explicit `--testsuite unit` keeps that suite on the stub path.
+$unit_suite_requested = false;
+foreach ( $_SERVER['argv'] ?? array() as $i => $arg ) {
+	if ( '--testsuite=unit' === $arg || ( '--testsuite' === $arg && 'unit' === ( $_SERVER['argv'][ $i + 1 ] ?? '' ) ) ) {
+		$unit_suite_requested = true;
+	}
+}
+
+if ( $unit_suite_requested || ! file_exists( $wp_tests_dir . '/includes/functions.php' ) ) {
 	// Unit test suite — load stubs and plugin classes directly.
 	$root = dirname( __DIR__, 2 );
 
@@ -50,10 +60,7 @@ define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', dirname( __DIR__, 2 ) . '/vendor/yoas
 require_once $wp_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin(): void {
-	$plugin_file = glob( dirname( __DIR__, 2 ) . '/*.php' )[0] ?? '';
-	if ( $plugin_file ) {
-		require $plugin_file;
-	}
+	require dirname( __DIR__, 2 ) . '/videomuxr.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
