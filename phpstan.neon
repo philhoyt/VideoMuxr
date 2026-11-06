@@ -14,5 +14,3 @@ parameters:
         - node_modules (?)
         - build (?)
         - tests (?)
-    ignoreErrors:
-        - '#Call to an undefined method YahnisElsts\\PluginUpdateChecker\\.*::enableReleaseAssets\(\)#'
