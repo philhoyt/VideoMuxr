@@ -4,7 +4,7 @@ Tags:              video, mux, upload, player
 Requires at least: 6.7
 Tested up to:      7.1
 Requires PHP:      8.1
-Stable tag:        0.1.1
+Stable tag:        0.1.2
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Yes. Assets are created with a public playback policy, so anyone with the playba
 Only when the post carries the `_videomuxr_asset_id` meta, which companion plugins such as QuickPostr set. The VideoMuxr Video block stores its IDs as block attributes, not meta, so removing a block or deleting a post that only used the block leaves the asset in Mux. Replace video in the block toolbar deletes the old asset before uploading a new one; otherwise delete it from the Mux dashboard.
 
 == Changelog ==
+
+= 0.1.2 =
+* Fixed dashboard updates installing the release's readme.txt instead of the plugin zip (PCLZIP_ERR_BAD_FORMAT). Sites on 0.1.1 or earlier: upload this release's zip once; later updates arrive normally.
+* Rewrote the readme files in plain English and filled in the package metadata.
 
 = 0.1.1 =
 * Fixed update checks failing with a missing class: the update checker's Markdown and readme parsers now ship with the plugin.
