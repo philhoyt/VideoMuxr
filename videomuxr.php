@@ -36,7 +36,16 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 		__FILE__,
 		'videomuxr'
 	);
-	$checker->getVcsApi()->enableReleaseAssets();
+
+	$api = $checker->getVcsApi();
+	if ( method_exists( $api, 'enableReleaseAssets' ) ) {
+		// Only a .zip asset counts, and a release without one is skipped. The
+		// default PREFER_RELEASE_ASSETS falls back to GitHub's source archive,
+		// which installs as <Repo>-<tag>/ and breaks the plugin directory.
+		// Without the filter the first asset wins, GitHub lists assets by name,
+		// and readme.txt sorts ahead of videomuxr.zip (PCLZIP_ERR_BAD_FORMAT).
+		$api->enableReleaseAssets( '/\.zip$/', $api::REQUIRE_RELEASE_ASSETS );
+	}
 } )();
 
 // Load public helper functions.
